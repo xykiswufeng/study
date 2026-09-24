@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/models">
+        <file alias="ROV_03_realtime.wzmesh">models/ROV_03_realtime.wzmesh</file>
+    </qresource>
+</RCC>

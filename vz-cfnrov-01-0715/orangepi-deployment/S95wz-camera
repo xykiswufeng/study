@@ -1,0 +1,89 @@
+#!/bin/sh
+
+MEDIAMTX=/wz/mediamtx
+CONFIG=/wz/mediamtx-camera.yml
+PIDFILE=/var/run/wz-mediamtx.pid
+LOGFILE=/var/log/wz-mediamtx.log
+
+is_running() {
+    [ -f "$PIDFILE" ] && kill -0 "$(cat "$PIDFILE")" 2>/dev/null
+}
+
+start_service() {
+    if is_running; then
+        echo "WZ camera service is already running (PID $(cat "$PIDFILE"))"
+        return 0
+    fi
+
+    if [ ! -x "$MEDIAMTX" ]; then
+        echo "MediaMTX executable not found: $MEDIAMTX"
+        return 1
+    fi
+    if [ ! -f "$CONFIG" ]; then
+        echo "MediaMTX config not found: $CONFIG"
+        return 1
+    fi
+
+    # The factory rovcleaner owns RTSP :554 and /dev/video0 but does not
+    # support the replacement USB camera stream. Keep its init script intact
+    # for rollback, and stop only the running process before MediaMTX starts.
+    killall rovcleaner 2>/dev/null
+    sleep 1
+
+    echo "Starting WZ USB camera RTSP service..."
+    "$MEDIAMTX" "$CONFIG" >>"$LOGFILE" 2>&1 &
+    echo $! >"$PIDFILE"
+    sleep 2
+
+    if is_running; then
+        echo "WZ camera service started (PID $(cat "$PIDFILE"))"
+        return 0
+    fi
+
+    echo "WZ camera service failed to start"
+    tail -n 20 "$LOGFILE" 2>/dev/null
+    rm -f "$PIDFILE"
+    return 1
+}
+
+stop_service() {
+    echo "Stopping WZ USB camera RTSP service..."
+    if [ -f "$PIDFILE" ]; then
+        kill "$(cat "$PIDFILE")" 2>/dev/null
+        rm -f "$PIDFILE"
+    fi
+    killall mediamtx 2>/dev/null
+}
+
+status_service() {
+    if is_running; then
+        echo "WZ camera service is running (PID $(cat "$PIDFILE"))"
+        netstat -lntup 2>/dev/null | grep ':554 ' || true
+        return 0
+    fi
+    echo "WZ camera service is stopped"
+    return 1
+}
+
+case "$1" in
+    start)
+        start_service
+        ;;
+    stop)
+        stop_service
+        ;;
+    restart)
+        stop_service
+        sleep 1
+        start_service
+        ;;
+    status)
+        status_service
+        ;;
+    *)
+        echo "Usage: $0 {start|stop|restart|status}"
+        exit 1
+        ;;
+esac
+
+exit $?

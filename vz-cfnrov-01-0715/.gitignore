@@ -1,0 +1,63 @@
+# Qt / qmake / CMake generated files
+.qtcreator/
+*.pro.user
+*.pro.user.*
+*.user
+*.user.*
+.qmake.stash
+Makefile
+Makefile.*
+CMakeCache.txt
+CMakeFiles/
+cmake-build-*/
+build/
+build-*/
+debug/
+Debug/
+release/
+Release/
+object_script.*.Debug
+object_script.*.Release
+moc_*.cpp
+ui_*.h
+qrc_*.cpp
+*.o
+*.obj
+
+# Visual Studio generated files
+.vs/
+*.suo
+*.userosscache
+*.sln.docstates
+*.pdb
+*.ilk
+*.exp
+
+# Compiled binaries and third-party binary libraries
+*.dll
+*.exe
+*.lib
+*.a
+
+# Packaged builds and archives
+*.zip
+*.7z
+*.rar
+*.tar
+*.tar.gz
+*.tgz
+wz-724-portable/
+
+# Runtime output and caches
+log/
+logs/
+__pycache__/
+*.pyc
+
+# Local deployment keys
+.codex-*
+
+# OS metadata
+.DS_Store
+Thumbs.db
+Desktop.ini

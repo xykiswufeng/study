@@ -1,0 +1,121 @@
+#!/bin/sh
+
+# Pixhawk serial <-> upper-computer MAVLink/UDP bridge.
+# The upper computer binds UDP 5555 and sends to Orange Pi UDP 15001.
+
+CONFIG=/etc/wz-mavlink.conf
+PIDFILE=/var/run/wz-mavlink.pid
+LOGFILE=/var/log/wz-mavlink.log
+
+MAVLINK_SERIAL_DEVICE=auto
+MAVLINK_BAUD=115200
+MAVLINK_GCS_IP=192.168.1.137
+MAVLINK_GCS_PORT=5555
+MAVLINK_LOCAL_PORT=15001
+
+[ -f "$CONFIG" ] && . "$CONFIG"
+
+is_running() {
+    [ -f "$PIDFILE" ] && kill -0 "$(cat "$PIDFILE")" 2>/dev/null
+}
+
+find_serial_device() {
+    if [ "$MAVLINK_SERIAL_DEVICE" != "auto" ]; then
+        [ -c "$MAVLINK_SERIAL_DEVICE" ] && echo "$MAVLINK_SERIAL_DEVICE"
+        return
+    fi
+
+    for device in /dev/ttyACM0 /dev/ttyACM1 /dev/ttyUSB0 /dev/ttyUSB1; do
+        if [ -c "$device" ]; then
+            echo "$device"
+            return
+        fi
+    done
+}
+
+bridge_supervisor() {
+    child_pid=
+    trap '[ -n "$child_pid" ] && kill "$child_pid" 2>/dev/null; exit 0' TERM INT
+
+    while true; do
+        serial_device="$(find_serial_device)"
+        if [ -z "$serial_device" ]; then
+            echo "$(date '+%Y-%m-%d %H:%M:%S') waiting for Pixhawk serial device" >>"$LOGFILE"
+            sleep 2
+            continue
+        fi
+
+        echo "$(date '+%Y-%m-%d %H:%M:%S') bridging $serial_device at $MAVLINK_BAUD baud to $MAVLINK_GCS_IP:$MAVLINK_GCS_PORT (local UDP $MAVLINK_LOCAL_PORT)" >>"$LOGFILE"
+        socat \
+            "$serial_device,raw,echo=0,b$MAVLINK_BAUD" \
+            "UDP4:$MAVLINK_GCS_IP:$MAVLINK_GCS_PORT,bind=:$MAVLINK_LOCAL_PORT,reuseaddr" \
+            >>"$LOGFILE" 2>&1 &
+        child_pid=$!
+        wait "$child_pid"
+        child_pid=
+        echo "$(date '+%Y-%m-%d %H:%M:%S') MAVLink bridge stopped; retrying" >>"$LOGFILE"
+        sleep 2
+    done
+}
+
+start_service() {
+    if is_running; then
+        echo "WZ MAVLink bridge is already running (PID $(cat "$PIDFILE"))"
+        return 0
+    fi
+
+    if ! command -v socat >/dev/null 2>&1; then
+        echo "socat is not installed"
+        return 1
+    fi
+
+    bridge_supervisor &
+    echo $! >"$PIDFILE"
+    sleep 1
+
+    if is_running; then
+        echo "WZ MAVLink bridge started (PID $(cat "$PIDFILE"))"
+        return 0
+    fi
+
+    echo "WZ MAVLink bridge failed to start"
+    rm -f "$PIDFILE"
+    return 1
+}
+
+stop_service() {
+    if [ -f "$PIDFILE" ]; then
+        pid="$(cat "$PIDFILE")"
+        kill "$pid" 2>/dev/null
+        wait "$pid" 2>/dev/null
+        rm -f "$PIDFILE"
+    fi
+    echo "WZ MAVLink bridge stopped"
+}
+
+status_service() {
+    if is_running; then
+        echo "WZ MAVLink bridge is running (PID $(cat "$PIDFILE"))"
+        tail -n 5 "$LOGFILE" 2>/dev/null
+        return 0
+    fi
+    echo "WZ MAVLink bridge is stopped"
+    return 1
+}
+
+case "$1" in
+    start) start_service ;;
+    stop) stop_service ;;
+    restart)
+        stop_service
+        sleep 1
+        start_service
+        ;;
+    status) status_service ;;
+    *)
+        echo "Usage: $0 {start|stop|restart|status}"
+        exit 1
+        ;;
+esac
+
+exit $?

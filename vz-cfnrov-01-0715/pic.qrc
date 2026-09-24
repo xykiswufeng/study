@@ -1,0 +1,31 @@
+<RCC>
+    <qresource prefix="/btn">
+        <file>pic/close.png</file>
+        <file>pic/logo.png</file>
+        <file>pic/fullscreen.png</file>
+        <file>pic/turnoncamera.png</file>
+        <file>pic/turnoffcamera.png</file>
+        <file>pic/Down_arrow.png</file>
+        <file>pic/Left_arrow.png</file>
+        <file>pic/Right_arrow.png</file>
+        <file>pic/Up_arrow.png</file>
+        <file>pic/Go_back.png</file>
+        <file>pic/Go_down.png</file>
+        <file>pic/Go_forward.png</file>
+        <file>pic/Go_up.png</file>
+        <file>pic/setup.png</file>
+        <file>pic/turnoffligh.png</file>
+        <file>pic/turnonligh.png</file>
+        <file>pic/reset.png</file>
+        <file>pic/sizegrip.png</file>
+        <file>pic/chevron-down.svg</file>
+        <file>pic/chevron-up.svg</file>
+        <file>pic/clockwise-arrow.svg</file>
+        <file>pic/counter-clockwise-arrow.svg</file>
+        <file>pic/JoystickBezel.png</file>
+    </qresource>
+    <qresource prefix="/"/>
+    <qresource prefix="/">
+        <file>gamecontrollerdb.txt</file>
+    </qresource>
+</RCC>

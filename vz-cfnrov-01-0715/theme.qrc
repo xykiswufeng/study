@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/theme">
+        <file alias="professional.qss">styles/professional.qss</file>
+    </qresource>
+</RCC>

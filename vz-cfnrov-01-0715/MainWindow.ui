@@ -1,0 +1,2044 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1920</width>
+    <height>1080</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>800</width>
+    <height>500</height>
+   </size>
+  </property>
+  <property name="focusPolicy">
+   <enum>Qt::StrongFocus</enum>
+  </property>
+  <property name="windowTitle">
+   <string>Vozon 网衣清洗ROV 控制器 v0.1</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="pic.qrc">
+    <normaloff>:/btn/pic/logo.png</normaloff>:/btn/pic/logo.png</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">/* wz-724 professional dark control-console theme */
+QMainWindow, QWidget#centralWidget {
+    background: #07121b;
+    color: #d7e5ee;
+}
+
+QWidget {
+    font-family: "Microsoft YaHei UI";
+    font-size: 13px;
+}
+
+QWidget#widget_top {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+                                stop:0 #0c1b27, stop:0.55 #102433, stop:1 #0b1924);
+    border-bottom: 1px solid #2c4658;
+}
+
+QLabel#label_2 {
+    color: #f1f7fb;
+    font-size: 16px;
+    font-weight: 600;
+    padding-left: 4px;
+}
+
+QLabel#topClock {
+    color: #9fc1d4;
+    background: rgba(6, 16, 24, 120);
+    border: 1px solid #294354;
+    border-radius: 7px;
+    padding: 5px 11px;
+    font-family: "Consolas";
+    font-size: 12px;
+}
+
+QPushButton[role="topTool"] {
+    min-width: 32px;
+    min-height: 30px;
+    max-width: 32px;
+    max-height: 30px;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 6px;
+}
+QPushButton[role="topTool"]:hover {
+    background: #1a3445;
+    border-color: #42677d;
+}
+QPushButton[role="topTool"]:pressed { background: #102633; }
+QPushButton#pushButton_close:hover { background: #702c36; border-color: #bc5964; }
+
+QPushButton[role="modeDive"], QPushButton[role="modeClean"] {
+    min-height: 28px;
+    padding: 0 14px;
+    border-radius: 6px;
+    font-weight: 600;
+}
+QPushButton[role="modeDive"] {
+    color: #77d8ee;
+    background: rgba(20, 80, 102, 120);
+    border: 1px solid #267a95;
+}
+QPushButton[role="modeDive"]:hover { background: #175d76; }
+QPushButton[role="modeClean"] {
+    color: #7ee2b8;
+    background: rgba(23, 91, 67, 120);
+    border: 1px solid #2a8163;
+}
+QPushButton[role="modeClean"]:hover { background: #1d694f; }
+
+QWidget#widget_cameraPanel, QWidget#widget_ctrlPanel { background: #07121b; }
+
+QWidget#widget_camera_0, QWidget#widget_camera_back_1 {
+    background: #03090e;
+    border: 1px solid #294454;
+    border-radius: 8px;
+}
+
+QPushButton[role="cameraExpand"] {
+    color: #dff7ff;
+    background: rgba(5, 22, 31, 220);
+    border: 1px solid #39778f;
+    border-radius: 5px;
+    padding: 3px 9px;
+    font-weight: 600;
+}
+QPushButton[role="cameraExpand"]:hover {
+    background: #17536a;
+    border-color: #55bad7;
+}
+QPushButton[role="cameraExpand"]:pressed { background: #0e3648; }
+
+QWidget#widget, QWidget#widget_leftCtrlPanel, QWidget#widget_rightCtrlPanel,
+WidgetPFD#widgetPFD, QWidget#widget_4 {
+    background: #0b1923;
+    border: 1px solid #253d4c;
+    border-radius: 8px;
+}
+
+QWidget#telemetryPanel {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                stop:0 #0d202c, stop:1 #091720);
+    border: 1px solid #2d4a5b;
+    border-radius: 8px;
+}
+
+QLabel[role="sectionTitle"] {
+    color: #b8d2df;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #274252;
+    min-height: 24px;
+    padding: 0 3px 4px 3px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+QWidget[metricCard="true"] {
+    background: rgba(10, 29, 40, 210);
+    border: 1px solid #294b5e;
+    border-radius: 7px;
+}
+QWidget[metricCard="true"]:hover {
+    background: rgba(14, 39, 52, 230);
+    border-color: #3a6c83;
+}
+QLabel[role="metricTitle"] {
+    color: #789caf;
+    background: transparent;
+    border: none;
+    font-size: 11px;
+    font-weight: 600;
+}
+QLabel[role="metricValue"] {
+    color: #dff7ff;
+    background: transparent;
+    border: none;
+    font-family: "Consolas";
+    font-size: 22px;
+    font-weight: 600;
+}
+QLabel[role="metricUnit"] {
+    color: #7193a5;
+    background: transparent;
+    border: none;
+    padding-bottom: 3px;
+    font-family: "Consolas";
+    font-size: 10px;
+}
+
+QPushButton[role="gimbal"] {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                stop:0 #1a3343, stop:1 #102531);
+    border: 1px solid #345469;
+    border-radius: 6px;
+    min-width: 29px;
+    min-height: 29px;
+}
+QPushButton[role="gimbal"]:hover {
+    background: #21536b;
+    border-color: #5b9ab8;
+}
+QPushButton[role="gimbal"]:pressed { background: #0d87aa; }
+
+QLabel#label_leftLight, QLabel#label_rightLight {
+    color: #a9c1cf;
+    font-weight: 600;
+    padding: 3px;
+}
+
+QComboBox {
+    color: #d9ebf3;
+    background: #102633;
+    border: 1px solid #356078;
+    border-radius: 6px;
+    min-height: 28px;
+    padding: 1px 28px 1px 10px;
+    font-weight: 600;
+}
+QComboBox:hover { border-color: #4f8ca9; background: #143042; }
+QComboBox::drop-down { border: none; width: 24px; }
+QComboBox QAbstractItemView {
+    color: #d9ebf3;
+    background: #102633;
+    border: 1px solid #3a657b;
+    selection-background-color: #196f8e;
+    outline: 0;
+}
+
+QSlider::groove:vertical {
+    background: #142a37;
+    width: 8px;
+    border-radius: 4px;
+}
+QSlider::sub-page:vertical { background: #142a37; border-radius: 4px; }
+QSlider::add-page:vertical { background: #1686aa; border-radius: 4px; }
+QSlider::handle:vertical {
+    background: #d9f3fb;
+    border: 2px solid #35a9cb;
+    width: 18px;
+    height: 18px;
+    margin: -5px -6px;
+    border-radius: 9px;
+}
+QSlider::handle:vertical:hover { background: white; border-color: #6bd5ed; }
+
+QStatusBar {
+    background: #091720;
+    color: #9fb8c6;
+    border-top: 1px solid #263e4d;
+    min-height: 30px;
+}
+QStatusBar::item { border: none; }
+QSizeGrip { width: 0; height: 0; }
+
+QLabel[statusBadge="true"] {
+    border-radius: 7px;
+    padding: 3px 10px;
+    margin: 2px 3px;
+    font-weight: 600;
+}
+QLabel[statusBadge="true"][state="ok"] {
+    color: #8ce7c0; background: #123c31; border: 1px solid #286b57;
+}
+QLabel[statusBadge="true"][state="danger"] {
+    color: #ff9ba5; background: #47232a; border: 1px solid #7d3c47;
+}
+QLabel[statusBadge="true"][state="warning"] {
+    color: #ffd58a; background: #493a1f; border: 1px solid #80652c;
+}
+QLabel[statusBadge="true"][state="info"] {
+    color: #8fdcf0; background: #123746; border: 1px solid #28627a;
+}
+QLabel#attitudeBadge {
+    color: #9ee8f6;
+    background: #102d3a;
+    border: 1px solid #285b6e;
+    border-radius: 7px;
+    padding: 3px 11px;
+    margin: 2px 3px;
+    font-family: "Consolas";
+    font-weight: 600;
+}
+QLabel#systemStatusText { color: #adc2cd; padding: 0 10px; }
+
+QToolTip {
+    color: #e4f1f6;
+    background: #102633;
+    border: 1px solid #42677d;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+/* Four-row ROV operations dashboard */
+QWidget#dashboardTopRow, QWidget#dashboardVisualRow, QWidget#dashboardControlRow {
+    background: #06141d;
+}
+
+QWidget[dashboardPanel="true"], QWidget[controlCell="true"] {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                stop:0 #0b2632, stop:1 #071923);
+    border: 1px solid #21677a;
+    border-radius: 9px;
+}
+
+QWidget#frontCameraFrame, QWidget#modelFrame, QWidget#depthFrame,
+QWidget#rearCameraFrame {
+    border: 2px solid #24899c;
+}
+
+QLabel[role="dashboardTitle"] {
+    color: #d4eef4;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #1e5262;
+    min-height: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 0 4px 3px 4px;
+}
+
+QLabel[role="controlTitle"] {
+    color: #9cc9d5;
+    background: transparent;
+    border: none;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+QLabel#connectionStateValue {
+    color: #ffbd59;
+    background: #071d27;
+    border: 1px solid #276477;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+}
+QLabel#connectionStateValue[state="ok"] { color: #68ef9e; border-color: #308c62; }
+QLabel#connectionStateValue[state="danger"] { color: #ff7e88; border-color: #963d49; }
+QLabel#connectionStateValue[state="warning"] { color: #ffd071; border-color: #88692c; }
+QLabel#connectionAddressValue {
+    color: #74d6e8;
+    background: transparent;
+    border: none;
+    font-family: "Consolas";
+    font-size: 13px;
+    font-weight: 600;
+}
+
+QLabel#dashboardClock {
+    color: #d7f2f7;
+    background: transparent;
+    border: none;
+    font-family: "Consolas";
+    font-size: 16px;
+    font-weight: 600;
+}
+
+QPushButton[role="dashboardTool"] {
+    color: #bfe9f1;
+    background: #0c2b38;
+    border: 1px solid #2f8598;
+    border-radius: 7px;
+    min-height: 48px;
+    font-size: 12px;
+    font-weight: 600;
+}
+QPushButton[role="dashboardTool"]:hover {
+    color: #04202a;
+    background: #38d3e6;
+    border-color: #81edf7;
+}
+QPushButton[role="dashboardMiniTool"] {
+    color: #92bdc8;
+    background: transparent;
+    border: 1px solid #285869;
+    border-radius: 5px;
+    min-width: 25px;
+    max-width: 25px;
+    min-height: 23px;
+    max-height: 23px;
+    font-size: 17px;
+    font-weight: 600;
+}
+QPushButton[role="dashboardMiniTool"]:hover {
+    color: white;
+    background: #a8323c;
+    border-color: #e2606b;
+}
+
+QWidget#emergencyCell {
+    background: #071923;
+    border: 1px solid #4b5f48;
+    border-radius: 9px;
+}
+QPushButton#emergencyStopButton {
+    color: white;
+    background: qradialgradient(cx:0.45, cy:0.35, radius:0.72,
+                                stop:0 #ff5c5c, stop:0.58 #dc252b, stop:1 #7c1118);
+    border: 7px solid #e8c629;
+    border-radius: 76px;
+    min-width: 140px;
+    max-width: 140px;
+    min-height: 140px;
+    max-height: 140px;
+    font-size: 22px;
+    font-weight: 700;
+}
+QPushButton#emergencyStopButton:hover { border-color: #fff06d; }
+QPushButton#emergencyStopButton:pressed,
+QPushButton#emergencyStopButton:checked {
+    background: #9d1018;
+    border-color: #ffdf33;
+}
+
+QWidget#dashboardControlRow QSlider::groove:vertical {
+    background: #123440;
+    width: 9px;
+    border-radius: 4px;
+}
+QWidget#dashboardControlRow QSlider::add-page:vertical {
+    background: #20c9df;
+    border-radius: 4px;
+}
+QWidget#dashboardControlRow QSlider::handle:vertical {
+    background: #e6fbff;
+    border: 2px solid #4bd8ea;
+    width: 19px;
+    height: 19px;
+    margin: -5px -6px;
+    border-radius: 10px;
+}
+</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QGridLayout" name="gridLayout_5" rowstretch="20,50,30,0">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <item row="0" column="0">
+     <widget class="QWidget" name="dashboardTopRow" native="true">
+      <layout class="QHBoxLayout" name="dashboardTopLayout" stretch="15,10,10,22,15">
+       <property name="spacing">
+        <number>6</number>
+       </property>
+       <property name="leftMargin">
+        <number>5</number>
+       </property>
+       <property name="topMargin">
+        <number>5</number>
+       </property>
+       <property name="rightMargin">
+        <number>5</number>
+       </property>
+       <property name="bottomMargin">
+        <number>5</number>
+       </property>
+       <item>
+        <widget class="QWidget" name="connectionPanel" native="true">
+         <property name="dashboardPanel" stdset="0">
+          <bool>true</bool>
+         </property>
+         <layout class="QVBoxLayout" name="connectionPanelLayout">
+          <property name="spacing">
+           <number>4</number>
+          </property>
+          <property name="leftMargin">
+           <number>6</number>
+          </property>
+          <property name="topMargin">
+           <number>6</number>
+          </property>
+          <property name="rightMargin">
+           <number>6</number>
+          </property>
+          <property name="bottomMargin">
+           <number>6</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="connectionPanelTitle">
+            <property name="text">
+             <string>ROV 连接状态</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+            <property name="role" stdset="0">
+             <string>dashboardTitle</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="connectionStateValue">
+            <property name="text">
+             <string>等待MAVLink心跳  ●</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="connectionAddressValue">
+            <property name="text">
+             <string>192.168.1.101</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="pitchPanel" native="true">
+         <property name="dashboardPanel" stdset="0">
+          <bool>true</bool>
+         </property>
+         <layout class="QVBoxLayout" name="pitchPanelLayout">
+          <property name="spacing">
+           <number>4</number>
+          </property>
+          <property name="leftMargin">
+           <number>6</number>
+          </property>
+          <property name="topMargin">
+           <number>6</number>
+          </property>
+          <property name="rightMargin">
+           <number>6</number>
+          </property>
+          <property name="bottomMargin">
+           <number>6</number>
+          </property>
+          <item>
+           <widget class="QWidget" name="pitchPanelGaugeHost" native="true" />
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="rollPanel" native="true">
+         <property name="dashboardPanel" stdset="0">
+          <bool>true</bool>
+         </property>
+         <layout class="QVBoxLayout" name="rollPanelLayout">
+          <property name="spacing">
+           <number>4</number>
+          </property>
+          <property name="leftMargin">
+           <number>6</number>
+          </property>
+          <property name="topMargin">
+           <number>6</number>
+          </property>
+          <property name="rightMargin">
+           <number>6</number>
+          </property>
+          <property name="bottomMargin">
+           <number>6</number>
+          </property>
+          <item>
+           <widget class="QWidget" name="rollPanelGaugeHost" native="true" />
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="thrusterPanel" native="true">
+         <property name="dashboardPanel" stdset="0">
+          <bool>true</bool>
+         </property>
+         <layout class="QVBoxLayout" name="thrusterPanelLayout">
+          <property name="spacing">
+           <number>4</number>
+          </property>
+          <property name="leftMargin">
+           <number>6</number>
+          </property>
+          <property name="topMargin">
+           <number>6</number>
+          </property>
+          <property name="rightMargin">
+           <number>6</number>
+          </property>
+          <property name="bottomMargin">
+           <number>6</number>
+          </property>
+          <item>
+           <widget class="QWidget" name="thrusterPanelGaugeHost" native="true" />
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="toolsPanel" native="true">
+         <property name="dashboardPanel" stdset="0">
+          <bool>true</bool>
+         </property>
+         <layout class="QVBoxLayout" name="toolsPanelLayout">
+          <property name="spacing">
+           <number>4</number>
+          </property>
+          <property name="leftMargin">
+           <number>6</number>
+          </property>
+          <property name="topMargin">
+           <number>6</number>
+          </property>
+          <property name="rightMargin">
+           <number>6</number>
+          </property>
+          <property name="bottomMargin">
+           <number>6</number>
+          </property>
+          <item>
+           <layout class="QHBoxLayout" name="toolsHeaderLayout">
+            <property name="spacing">
+             <number>4</number>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QLabel" name="dashboardClock">
+              <property name="text">
+               <string>00:00:00</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="dashboardExitButton">
+              <property name="text">
+               <string>×</string>
+              </property>
+              <property name="role" stdset="0">
+               <string>dashboardMiniTool</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="toolsButtonsLayout">
+            <property name="spacing">
+             <number>4</number>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QPushButton" name="dashboardHelpButton">
+              <property name="text">
+               <string>?
+帮助</string>
+              </property>
+              <property name="role" stdset="0">
+               <string>dashboardTool</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="dashboardSettingsButton">
+              <property name="text">
+               <string>⚙
+设置</string>
+              </property>
+              <property name="role" stdset="0">
+               <string>dashboardTool</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="dashboardPwmButton">
+              <property name="text">
+               <string>PWM</string>
+              </property>
+              <property name="role" stdset="0">
+               <string>dashboardTool</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QWidget" name="dashboardVisualRow" native="true">
+      <layout class="QHBoxLayout" name="dashboardVisualLayout" stretch="30,27,7,30">
+       <property name="spacing">
+        <number>6</number>
+       </property>
+       <property name="leftMargin">
+        <number>5</number>
+       </property>
+       <property name="topMargin">
+        <number>5</number>
+       </property>
+       <property name="rightMargin">
+        <number>5</number>
+       </property>
+       <property name="bottomMargin">
+        <number>5</number>
+       </property>
+       <item>
+        <widget class="QWidget" name="frontCameraFrame" native="true">
+         <property name="dashboardPanel" stdset="0">
+          <bool>true</bool>
+         </property>
+         <layout class="QVBoxLayout" name="frontCameraFrameLayout">
+          <property name="spacing">
+           <number>4</number>
+          </property>
+          <property name="leftMargin">
+           <number>6</number>
+          </property>
+          <property name="topMargin">
+           <number>6</number>
+          </property>
+          <property name="rightMargin">
+           <number>6</number>
+          </property>
+          <property name="bottomMargin">
+           <number>6</number>
+          </property>
+          <item>
+           <widget class="QWidget" name="widget_camera_0" native="true">
+            <widget class="QPushButton" name="frontRecordButton">
+             <property name="geometry">
+              <rect>
+               <x>12</x>
+               <y>12</y>
+               <width>112</width>
+               <height>32</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>● 开始录像</string>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="frontExpandButton">
+             <property name="geometry">
+              <rect>
+               <x>490</x>
+               <y>430</y>
+               <width>88</width>
+               <height>30</height>
+              </rect>
+             </property>
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="text">
+              <string>⛶ 全屏</string>
+             </property>
+             <property name="role" stdset="0">
+              <string>cameraExpand</string>
+             </property>
+            </widget>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="modelFrame" native="true">
+         <property name="dashboardPanel" stdset="0">
+          <bool>true</bool>
+         </property>
+         <layout class="QVBoxLayout" name="modelFrameLayout">
+          <property name="spacing">
+           <number>4</number>
+          </property>
+          <property name="leftMargin">
+           <number>6</number>
+          </property>
+          <property name="topMargin">
+           <number>6</number>
+          </property>
+          <property name="rightMargin">
+           <number>6</number>
+          </property>
+          <property name="bottomMargin">
+           <number>6</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="modelFrameTitle">
+            <property name="text">
+             <string>ROV 3D 模型</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+            <property name="role" stdset="0">
+             <string>dashboardTitle</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QWidget" name="widget_4" native="true" />
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="depthFrame" native="true">
+         <property name="dashboardPanel" stdset="0">
+          <bool>true</bool>
+         </property>
+         <layout class="QVBoxLayout" name="depthFrameLayout">
+          <property name="spacing">
+           <number>4</number>
+          </property>
+          <property name="leftMargin">
+           <number>6</number>
+          </property>
+          <property name="topMargin">
+           <number>6</number>
+          </property>
+          <property name="rightMargin">
+           <number>6</number>
+          </property>
+          <property name="bottomMargin">
+           <number>6</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="depthFrameTitle">
+            <property name="text">
+             <string>深度</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+            <property name="role" stdset="0">
+             <string>dashboardTitle</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QWidget" name="depthGaugeHost" native="true" />
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="rearCameraFrame" native="true">
+         <property name="dashboardPanel" stdset="0">
+          <bool>true</bool>
+         </property>
+         <layout class="QVBoxLayout" name="rearCameraFrameLayout">
+          <property name="spacing">
+           <number>4</number>
+          </property>
+          <property name="leftMargin">
+           <number>6</number>
+          </property>
+          <property name="topMargin">
+           <number>6</number>
+          </property>
+          <property name="rightMargin">
+           <number>6</number>
+          </property>
+          <property name="bottomMargin">
+           <number>6</number>
+          </property>
+          <item>
+           <widget class="QWidget" name="widget_camera_back_1" native="true">
+            <widget class="QPushButton" name="rearRecordButton">
+             <property name="geometry">
+              <rect>
+               <x>12</x>
+               <y>12</y>
+               <width>112</width>
+               <height>32</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>● 开始录像</string>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="rearExpandButton">
+             <property name="geometry">
+              <rect>
+               <x>490</x>
+               <y>430</y>
+               <width>88</width>
+               <height>30</height>
+              </rect>
+             </property>
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="text">
+              <string>⛶ 全屏</string>
+             </property>
+             <property name="role" stdset="0">
+              <string>cameraExpand</string>
+             </property>
+            </widget>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QWidget" name="dashboardControlRow" native="true">
+      <layout class="QHBoxLayout" name="dashboardControlLayout" stretch="7,16,10,15,15,10,16,7">
+       <property name="spacing">
+        <number>8</number>
+       </property>
+       <property name="leftMargin">
+        <number>5</number>
+       </property>
+       <property name="topMargin">
+        <number>5</number>
+       </property>
+       <property name="rightMargin">
+        <number>5</number>
+       </property>
+       <property name="bottomMargin">
+        <number>5</number>
+       </property>
+       <item>
+        <widget class="QWidget" name="frontLightCell" native="true">
+         <property name="controlCell" stdset="0">
+          <bool>true</bool>
+         </property>
+         <layout class="QVBoxLayout" name="frontLightCellLayout">
+          <property name="spacing">
+           <number>4</number>
+          </property>
+          <property name="leftMargin">
+           <number>4</number>
+          </property>
+          <property name="topMargin">
+           <number>4</number>
+          </property>
+          <property name="rightMargin">
+           <number>4</number>
+          </property>
+          <property name="bottomMargin">
+           <number>4</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="frontLightCellTitle">
+            <property name="text">
+             <string>前补光灯</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+            <property name="role" stdset="0">
+             <string>controlTitle</string>
+            </property>
+           </widget>
+          </item>
+          <item alignment="Qt::AlignHCenter">
+           <widget class="QSlider" name="slider_frontLight">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimum">
+             <number>0</number>
+            </property>
+            <property name="maximum">
+             <number>100</number>
+            </property>
+            <property name="value">
+             <number>100</number>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="invertedAppearance">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <!-- 左操作盘：标题固定在顶部，摇杆容器占用剩余空间并居中。 -->
+        <widget class="QWidget" name="leftStickCell" native="true">
+         <property name="controlCell" stdset="0">
+          <bool>true</bool>
+         </property>
+         <layout class="QVBoxLayout" name="leftStickCellLayout" stretch="0,1">
+          <property name="spacing">
+           <number>4</number>
+          </property>
+          <property name="leftMargin">
+           <number>4</number>
+          </property>
+          <property name="topMargin">
+           <number>4</number>
+          </property>
+          <property name="rightMargin">
+           <number>4</number>
+          </property>
+          <property name="bottomMargin">
+           <number>4</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="leftStickCellTitle">
+            <property name="text">
+             <string>左操作盘</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+            <property name="role" stdset="0">
+             <string>controlTitle</string>
+            </property>
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed" />
+            </property>
+           </widget>
+          </item>
+          <item alignment="Qt::AlignCenter">
+           <widget class="QWidget" name="widget_leftBottomPad" native="true">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>108</width>
+              <height>108</height>
+             </size>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_7">
+             <property name="leftMargin">
+              <number>5</number>
+             </property>
+             <property name="topMargin">
+              <number>5</number>
+             </property>
+             <property name="rightMargin">
+              <number>5</number>
+             </property>
+             <property name="bottomMargin">
+              <number>5</number>
+             </property>
+             <property name="spacing">
+              <number>1</number>
+             </property>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <!-- 前云台：方向按钮组在面板剩余区域内水平、垂直居中。 -->
+        <widget class="QWidget" name="frontGimbalCell" native="true">
+         <property name="controlCell" stdset="0">
+          <bool>true</bool>
+         </property>
+         <layout class="QVBoxLayout" name="frontGimbalCellLayout" stretch="0,1">
+          <property name="spacing">
+           <number>4</number>
+          </property>
+          <property name="leftMargin">
+           <number>4</number>
+          </property>
+          <property name="topMargin">
+           <number>4</number>
+          </property>
+          <property name="rightMargin">
+           <number>4</number>
+          </property>
+          <property name="bottomMargin">
+           <number>4</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="frontGimbalCellTitle">
+            <property name="text">
+             <string>前云台</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+            <property name="role" stdset="0">
+             <string>controlTitle</string>
+            </property>
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed" />
+            </property>
+           </widget>
+          </item>
+          <item alignment="Qt::AlignCenter">
+           <widget class="QWidget" name="widget_leftTopPad" native="true">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>108</width>
+              <height>108</height>
+             </size>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_6">
+             <property name="leftMargin">
+              <number>5</number>
+             </property>
+             <property name="topMargin">
+              <number>5</number>
+             </property>
+             <property name="rightMargin">
+              <number>5</number>
+             </property>
+             <property name="bottomMargin">
+              <number>5</number>
+             </property>
+             <property name="spacing">
+              <number>1</number>
+             </property>
+             <item row="1" column="1">
+              <widget class="QPushButton" name="btnLeft_lt">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="icon">
+                <iconset resource="pic.qrc">
+                 <normaloff>:/btn/pic/Left_arrow.png</normaloff>:/btn/pic/Left_arrow.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>24</width>
+                 <height>24</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="2">
+              <widget class="QPushButton" name="btnDown_lt">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="icon">
+                <iconset resource="pic.qrc">
+                 <normaloff>:/btn/pic/Down_arrow.png</normaloff>:/btn/pic/Down_arrow.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>24</width>
+                 <height>24</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="3">
+              <widget class="QPushButton" name="btnRight_lt">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="icon">
+                <iconset resource="pic.qrc">
+                 <normaloff>:/btn/pic/Right_arrow.png</normaloff>:/btn/pic/Right_arrow.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>24</width>
+                 <height>24</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="2">
+              <widget class="QPushButton" name="btnUp_lt">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="icon">
+                <iconset resource="pic.qrc">
+                 <normaloff>:/btn/pic/Up_arrow.png</normaloff>:/btn/pic/Up_arrow.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>24</width>
+                 <height>24</height>
+                </size>
+               </property>
+               <property name="checked">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="2">
+              <widget class="QPushButton" name="btnFrontGimbalReset">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="icon">
+                <iconset resource="pic.qrc">
+                 <normaloff>:/btn/pic/reset.png</normaloff>:/btn/pic/reset.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>24</width>
+                 <height>24</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="armCell" native="true">
+         <property name="controlCell" stdset="0">
+          <bool>true</bool>
+         </property>
+         <layout class="QVBoxLayout" name="armCellLayout">
+          <property name="spacing">
+           <number>4</number>
+          </property>
+          <property name="leftMargin">
+           <number>4</number>
+          </property>
+          <property name="topMargin">
+           <number>4</number>
+          </property>
+          <property name="rightMargin">
+           <number>4</number>
+          </property>
+          <property name="bottomMargin">
+           <number>4</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="armCellTitle">
+            <property name="text">
+             <string>电机安全控制</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+            <property name="role" stdset="0">
+             <string>controlTitle</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="comboBox_flightMode">
+            <property name="styleSheet">
+             <string notr="true">QComboBox{color:#0FF;background:#333;border:1px solid #0FF;border-radius:4px;padding:2px 4px;font-weight:bold;min-width:80px;}QComboBox::drop-down{border:none;}QComboBox QAbstractItemView{color:#0FF;background:#333;selection-background-color:#555;}</string>
+            </property>
+            <item>
+             <property name="text">
+              <string>手动</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>姿态稳定</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>特技</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>定深</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>定点</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>引导角度</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item>
+           <widget class="QWidget" name="armSlideHost" native="true" />
+          </item>
+          <item>
+           <widget class="QWidget" name="disarmSlideHost" native="true" />
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <!-- 急停按钮：由 Designer 布局在安全控制面板正中央。 -->
+        <widget class="QWidget" name="emergencyCell" native="true">
+         <layout class="QVBoxLayout" name="emergencyCellLayout">
+          <property name="spacing">
+           <number>4</number>
+          </property>
+          <property name="leftMargin">
+           <number>8</number>
+          </property>
+          <property name="topMargin">
+           <number>8</number>
+          </property>
+          <property name="rightMargin">
+           <number>8</number>
+          </property>
+          <property name="bottomMargin">
+           <number>8</number>
+          </property>
+          <item alignment="Qt::AlignCenter">
+           <widget class="QPushButton" name="emergencyStopButton">
+            <property name="toolTip">
+             <string>按下立即上锁；再次点击并确认后解除急停</string>
+            </property>
+            <property name="text">
+             <string>急停
+STOP</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <!-- 后云台：与前云台使用相同的居中规则。 -->
+        <widget class="QWidget" name="rearGimbalCell" native="true">
+         <property name="controlCell" stdset="0">
+          <bool>true</bool>
+         </property>
+         <layout class="QVBoxLayout" name="rearGimbalCellLayout" stretch="0,1">
+          <property name="spacing">
+           <number>4</number>
+          </property>
+          <property name="leftMargin">
+           <number>4</number>
+          </property>
+          <property name="topMargin">
+           <number>4</number>
+          </property>
+          <property name="rightMargin">
+           <number>4</number>
+          </property>
+          <property name="bottomMargin">
+           <number>4</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="rearGimbalCellTitle">
+            <property name="text">
+             <string>后云台</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+            <property name="role" stdset="0">
+             <string>controlTitle</string>
+            </property>
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed" />
+            </property>
+           </widget>
+          </item>
+          <item alignment="Qt::AlignCenter">
+           <widget class="QWidget" name="widget_8" native="true">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>108</width>
+              <height>108</height>
+             </size>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_8">
+             <property name="leftMargin">
+              <number>5</number>
+             </property>
+             <property name="topMargin">
+              <number>5</number>
+             </property>
+             <property name="rightMargin">
+              <number>5</number>
+             </property>
+             <property name="bottomMargin">
+              <number>5</number>
+             </property>
+             <property name="spacing">
+              <number>1</number>
+             </property>
+             <item row="1" column="1">
+              <widget class="QPushButton" name="btnLeft_3">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="icon">
+                <iconset resource="pic.qrc">
+                 <normaloff>:/btn/pic/Left_arrow.png</normaloff>:/btn/pic/Left_arrow.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>24</width>
+                 <height>24</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="2">
+              <widget class="QPushButton" name="btnDown_3">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="icon">
+                <iconset resource="pic.qrc">
+                 <normaloff>:/btn/pic/Down_arrow.png</normaloff>:/btn/pic/Down_arrow.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>24</width>
+                 <height>24</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="3">
+              <widget class="QPushButton" name="btnRight_3">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="icon">
+                <iconset resource="pic.qrc">
+                 <normaloff>:/btn/pic/Right_arrow.png</normaloff>:/btn/pic/Right_arrow.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>24</width>
+                 <height>24</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="2">
+              <widget class="QPushButton" name="btnUp_3">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="icon">
+                <iconset resource="pic.qrc">
+                 <normaloff>:/btn/pic/Up_arrow.png</normaloff>:/btn/pic/Up_arrow.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>24</width>
+                 <height>24</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="2">
+              <widget class="QPushButton" name="btnRearGimbalReset">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="icon">
+                <iconset resource="pic.qrc">
+                 <normaloff>:/btn/pic/reset.png</normaloff>:/btn/pic/reset.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>24</width>
+                 <height>24</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <!-- 右操作盘：与左操作盘对称居中。 -->
+        <widget class="QWidget" name="rightStickCell" native="true">
+         <property name="controlCell" stdset="0">
+          <bool>true</bool>
+         </property>
+         <layout class="QVBoxLayout" name="rightStickCellLayout" stretch="0,1">
+          <property name="spacing">
+           <number>4</number>
+          </property>
+          <property name="leftMargin">
+           <number>4</number>
+          </property>
+          <property name="topMargin">
+           <number>4</number>
+          </property>
+          <property name="rightMargin">
+           <number>4</number>
+          </property>
+          <property name="bottomMargin">
+           <number>4</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="rightStickCellTitle">
+            <property name="text">
+             <string>右操作盘</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+            <property name="role" stdset="0">
+             <string>controlTitle</string>
+            </property>
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed" />
+            </property>
+           </widget>
+          </item>
+          <item alignment="Qt::AlignCenter">
+           <widget class="QWidget" name="widget_9" native="true">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>108</width>
+              <height>108</height>
+             </size>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_9">
+             <property name="leftMargin">
+              <number>5</number>
+             </property>
+             <property name="topMargin">
+              <number>5</number>
+             </property>
+             <property name="rightMargin">
+              <number>5</number>
+             </property>
+             <property name="bottomMargin">
+              <number>5</number>
+             </property>
+             <property name="spacing">
+              <number>1</number>
+             </property>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="rearLightCell" native="true">
+         <property name="controlCell" stdset="0">
+          <bool>true</bool>
+         </property>
+         <layout class="QVBoxLayout" name="rearLightCellLayout">
+          <property name="spacing">
+           <number>4</number>
+          </property>
+          <property name="leftMargin">
+           <number>4</number>
+          </property>
+          <property name="topMargin">
+           <number>4</number>
+          </property>
+          <property name="rightMargin">
+           <number>4</number>
+          </property>
+          <property name="bottomMargin">
+           <number>4</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="rearLightCellTitle">
+            <property name="text">
+             <string>后补光灯</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+            <property name="role" stdset="0">
+             <string>controlTitle</string>
+            </property>
+           </widget>
+          </item>
+          <item alignment="Qt::AlignHCenter">
+           <widget class="QSlider" name="slider_rearLight">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimum">
+             <number>0</number>
+            </property>
+            <property name="maximum">
+             <number>100</number>
+            </property>
+            <property name="value">
+             <number>100</number>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="invertedAppearance">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QWidget" name="legacyControls" native="true">
+      <property name="maximumSize">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
+      </property>
+      <layout class="QVBoxLayout" name="legacyControlsLayout">
+       <property name="spacing">
+        <number>4</number>
+       </property>
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QWidget" name="widget_top" native="true">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>27</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">#widget_top{background-color:#666;color:#FFF}</string>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <property name="spacing">
+           <number>5</number>
+          </property>
+          <property name="leftMargin">
+           <number>2</number>
+          </property>
+          <property name="topMargin">
+           <number>2</number>
+          </property>
+          <property name="rightMargin">
+           <number>2</number>
+          </property>
+          <property name="bottomMargin">
+           <number>2</number>
+          </property>
+          <item>
+           <widget class="QPushButton" name="pushButton_fullscreen">
+            <property name="icon">
+             <iconset resource="pic.qrc">
+              <normaloff>:/btn/pic/fullscreen.png</normaloff>:/btn/pic/fullscreen.png</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_setup">
+            <property name="icon">
+             <iconset resource="pic.qrc">
+              <normaloff>:/btn/pic/setup.png</normaloff>:/btn/pic/setup.png</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QLabel" name="label">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>40</horstretch>
+              <verstretch>24</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>24</width>
+              <height>24</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>24</width>
+              <height>24</height>
+             </size>
+            </property>
+            <property name="pixmap">
+             <pixmap resource="pic.qrc">:/btn/pic/logo.png</pixmap>
+            </property>
+            <property name="scaledContents">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_2">
+            <property name="styleSheet">
+             <string notr="true">color:#FFF</string>
+            </property>
+            <property name="text">
+             <string>Vozon 网衣清洗ROV 控制器 v0.1</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_switchToDive">
+            <property name="toolTip">
+             <string>切换至下水机架(F6)</string>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton{color:#0FF;background:#333;border:1px solid #0FF;border-radius:4px;padding:2px 8px;font-weight:bold;}QPushButton:hover{background:#555;}</string>
+            </property>
+            <property name="text">
+             <string>下水模式</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_switchToClean">
+            <property name="toolTip">
+             <string>切换至清洗机架(F5)</string>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton{color:#0F0;background:#333;border:1px solid #0F0;border-radius:4px;padding:2px 8px;font-weight:bold;}QPushButton:hover{background:#555;}</string>
+            </property>
+            <property name="text">
+             <string>清洗模式</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_close">
+            <property name="icon">
+             <iconset resource="pic.qrc">
+              <normaloff>:/btn/pic/close.png</normaloff>:/btn/pic/close.png</iconset>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="WidgetPFD" name="widgetPFD" native="true">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>2</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_leftLight">
+         <property name="text">
+          <string>前灯</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_rightLight">
+         <property name="text">
+          <string>后灯</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="widget_cameraPanel" native="true">
+         <layout class="QGridLayout" name="gridLayout_2">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <property name="spacing">
+           <number>4</number>
+          </property>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="widget_ctrlPanel" native="true">
+         <layout class="QGridLayout" name="gridLayout" columnstretch="2">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <property name="spacing">
+           <number>4</number>
+          </property>
+          <item row="0" column="0">
+           <widget class="QWidget" name="widget" native="true">
+            <layout class="QVBoxLayout" name="verticalLayout_widget">
+             <property name="spacing">
+              <number>4</number>
+             </property>
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+            </layout>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QWidget" name="widget_leftCtrlPanel" native="true">
+            <layout class="QVBoxLayout" name="verticalLayout">
+             <property name="spacing">
+              <number>4</number>
+             </property>
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+            </layout>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QWidget" name="widget_rightCtrlPanel" native="true">
+            <layout class="QVBoxLayout" name="verticalLayout_2">
+             <property name="spacing">
+              <number>4</number>
+             </property>
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_triggercamera_0">
+         <property name="text">
+          <string>打开前摄像头</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QStatusBar" name="statusbar">
+   <property name="minimumSize">
+    <size>
+     <width>0</width>
+     <height>31</height>
+    </size>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QStatusBar{background-color:#666;color:#FFF;font-size:13px;}
+QSizeGrip{width:0;height:0;}</string>
+   </property>
+   <property name="sizeGripEnabled">
+    <bool>false</bool>
+   </property>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11" />
+ <customwidgets>
+  <customwidget>
+   <class>WidgetPFD</class>
+   <extends>QWidget</extends>
+   <header>WidgetPFD.hpp</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="pic.qrc" />
+ </resources>
+ <connections />
+</ui>
